@@ -1,10 +1,16 @@
+<?php
+if (file_exists($_SERVER["DOCUMENT_ROOT"] . '/include/init.php')) {
+    require_once($_SERVER["DOCUMENT_ROOT"] . '/include/init.php');
+}
+if (file_exists($_SERVER["DOCUMENT_ROOT"] . '/handler/register.php')) {
+    require_once($_SERVER["DOCUMENT_ROOT"] . '/handler/register.php');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>
-        Регистрация
-    </title>
+    <title>Регистрация</title>
     <meta name="description" content="Login">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, minimal-ui">
@@ -24,6 +30,7 @@
     <link rel="stylesheet" media="screen, print" href="css/fa-brands.css">
 </head>
 <body>
+
     <div class="page-wrapper auth">
         <div class="page-inner bg-brand-gradient">
             <div class="page-content-wrapper bg-transparent m-0">
@@ -38,7 +45,7 @@
                         <span class="text-white opacity-50 ml-auto mr-2 hidden-sm-down">
                             Уже зарегистрированы?
                         </span>
-                        <a href="page_login.html" class="btn-link text-white ml-auto ml-sm-0">
+                        <a href="page_login.php" class="btn-link text-white ml-auto ml-sm-0">
                             Войти
                         </a>
                     </div>
@@ -49,32 +56,31 @@
                             <div class="col-xl-12">
                                 <h2 class="fs-xxl fw-500 mt-4 text-white text-center">
                                     Регистрация
-                                    <small class="h3 fw-300 mt-3 mb-5 text-white opacity-60 hidden-sm-down">
-                                        Давно выяснено, что при оценке дизайна и композиции читаемый текст мешает сосредоточиться.
-                                        <br> 
-                                        По своей сути рыбатекст является альтернативой традиционному lorem ipsum
-                                        
-                                    </small>
+                                    <small class="h3 fw-300 mt-3 mb-5 text-white opacity-60 hidden-sm-down"></small>
                                 </h2>
                             </div>
                             <div class="col-xl-6 ml-auto mr-auto">
                                 <div class="card p-4 rounded-plus bg-faded">
-                                    <div class="alert alert-danger text-dark" role="alert">
-                                        <strong>Уведомление!</strong> Этот эл. адрес уже занят другим пользователем.
-                                    </div>
-                                    <form id="js-login" novalidate="" action="">
+                                    <? if (!empty($_SESSION['MESSAGE']['REGISTER_ERROR'])): ?>
+
+                                        <div class="alert alert-danger text-dark" role="alert">
+                                            <strong>Уведомление!</strong>
+                                            <?= displayFlashMessage('REGISTER_ERROR') ?>
+                                        </div>
+
+                                    <? endif; ?>
+                                    <form id="js-login" action="page_register.php" method="POST" novalidate="">
                                         <div class="form-group">
                                             <label class="form-label" for="emailverify">Email</label>
-                                            <input type="email" id="emailverify" class="form-control" placeholder="Эл. адрес" required>
+                                            <input type="email" name="email" id="emailverify" class="form-control" placeholder="Эл. адрес" value="<?= $_POST['email'] ?>" required>
                                             <div class="invalid-feedback">Заполните поле.</div>
                                             <div class="help-block">Эл. адрес будет вашим логином при авторизации</div>
                                         </div>
                                         <div class="form-group">
                                             <label class="form-label" for="userpassword">Пароль <br></label>
-                                            <input type="password" id="userpassword" class="form-control" placeholder="" required>
+                                            <input type="password" name="password" id="userpassword" class="form-control" placeholder="" required>
                                             <div class="invalid-feedback">Заполните поле.</div>
                                         </div>
-                                       
                                         <div class="row no-gutters">
                                             <div class="col-md-4 ml-auto text-right">
                                                 <button id="js-login-btn" type="submit" class="btn btn-block btn-danger btn-lg mt-3">Регистрация</button>
@@ -109,5 +115,6 @@
         });
 
     </script>
+
 </body>
 </html>
