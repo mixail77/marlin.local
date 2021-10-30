@@ -2,7 +2,13 @@
 if (file_exists($_SERVER["DOCUMENT_ROOT"] . '/include/init.php')) {
     require_once($_SERVER["DOCUMENT_ROOT"] . '/include/init.php');
 }
-isAuthorize();
+
+//Проверяем авторизацию пользователя
+if (!isAuthorize()) {
+
+    redirectTo('/page_login.php');
+
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,16 +32,19 @@ isAuthorize();
         <div class="collapse navbar-collapse" id="navbarColor02">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item ">
-                    <a class="nav-link" href="#">Главная</a>
+                    <a class="nav-link" href="/">Главная</a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="page_login.php">Войти</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="page_logout.php">Выйти</a>
-                </li>
+                <? if(isAuthorize()): ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="page_logout.php">Выйти</a>
+                    </li>
+                <? else: ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="page_login.php">Войти</a>
+                    </li>
+                <? endif; ?>
             </ul>
         </div>
     </nav>

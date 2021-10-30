@@ -6,7 +6,7 @@ isAuthorize();
 //Список статусов
 $arStatusList = getStatusListAll();
 
-//Регистрация пользователя
+//Добавление пользователя
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     displayFlashClear();
@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     //Проверяем загружаемый файл
     if (empty($_FILES['photo']) || $_FILES['photo']['error'] != 0) {
 
-        $arError[] = 'Выберите аватар1';
+        $arError[] = 'Выберите аватар';
 
     } else {
 
@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if (!in_array($arExtension, $arType)) {
 
-            $arError[] = 'Недопустимый тип файла';
+            $arError[] = 'Неверный тип файла';
 
         }
 
@@ -103,8 +103,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             setFlashMessage('CREATE_SUCCESS', 'Пользователь успешно добавлен');
 
-            //Редирект на страницу авторизации
-            redirectTo('/users.php');
+            //Редирект на страницу списка пользователей
+            redirectTo('/page_users.php');
 
         }
 

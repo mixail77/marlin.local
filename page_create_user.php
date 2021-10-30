@@ -24,20 +24,23 @@ if (file_exists($_SERVER["DOCUMENT_ROOT"] . '/handler/create.php')) {
 <body>
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary bg-primary-gradient">
-        <a class="navbar-brand d-flex align-items-center fw-500" href="users.php"><img alt="logo" class="d-inline-block align-top mr-2" src="img/logo.png"> Учебный проект</a> <button aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarColor02" data-toggle="collapse" type="button"><span class="navbar-toggler-icon"></span></button>
+        <a class="navbar-brand d-flex align-items-center fw-500" href="page_users.php"><img alt="logo" class="d-inline-block align-top mr-2" src="img/logo.png"> Учебный проект</a> <button aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarColor02" data-toggle="collapse" type="button"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarColor02">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Главная <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/">Главная <span class="sr-only">(current)</span></a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="page_login.php">Войти</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="page_logout.php">Выйти</a>
-                </li>
+                <? if(isAuthorize()): ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="page_logout.php">Выйти</a>
+                    </li>
+                <? else: ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="page_login.php">Войти</a>
+                    </li>
+                <? endif; ?>
             </ul>
         </div>
     </nav>
@@ -57,7 +60,7 @@ if (file_exists($_SERVER["DOCUMENT_ROOT"] . '/handler/create.php')) {
                 <i class='subheader-icon fal fa-plus-circle'></i> Добавить пользователя
             </h1>
         </div>
-        <form action="create_user.php" method="POST" enctype="multipart/form-data">
+        <form action="page_create_user.php" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="" value="">
             <div class="row">
                 <div class="col-xl-6">

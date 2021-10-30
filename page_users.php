@@ -24,20 +24,23 @@ if (file_exists($_SERVER["DOCUMENT_ROOT"] . '/handler/users.php')) {
 <body class="mod-bg-1 mod-nav-link">
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary bg-primary-gradient">
-        <a class="navbar-brand d-flex align-items-center fw-500" href="users.php"><img alt="logo" class="d-inline-block align-top mr-2" src="img/logo.png"> Учебный проект</a> <button aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarColor02" data-toggle="collapse" type="button"><span class="navbar-toggler-icon"></span></button>
+        <a class="navbar-brand d-flex align-items-center fw-500" href="page_users.php"><img alt="logo" class="d-inline-block align-top mr-2" src="img/logo.png"> Учебный проект</a> <button aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarColor02" data-toggle="collapse" type="button"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarColor02">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Главная <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/">Главная <span class="sr-only">(current)</span></a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="page_login.php">Войти</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="page_logout.php">Выйти</a>
-                </li>
+                <? if(isAuthorize()): ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="page_logout.php">Выйти</a>
+                    </li>
+                <? else: ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="page_login.php">Войти</a>
+                    </li>
+                <? endif; ?>
             </ul>
         </div>
     </nav>
@@ -61,7 +64,7 @@ if (file_exists($_SERVER["DOCUMENT_ROOT"] . '/handler/users.php')) {
             <div class="col-xl-12">
 
                 <? if(isAdmin()): ?>
-                    <a class="btn btn-success" href="create_user.php">Добавить</a>
+                    <a class="btn btn-success" href="page_create_user.php">Добавить</a>
                 <? endif; ?>
 
                 <div class="border-faded bg-faded p-3 mb-g d-flex mt-3">
@@ -100,11 +103,11 @@ if (file_exists($_SERVER["DOCUMENT_ROOT"] . '/handler/users.php')) {
                                             <i class="fal fa-angle-down d-inline-block ml-1 fs-md"></i>
                                         </a>
                                         <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="edit.php?id=<?= $value['ID'] ?>"><i class="fa fa-edit"></i>Редактировать</a>
-                                            <a class="dropdown-item" href="security.php?id=<?= $value['ID'] ?>"><i class="fa fa-lock"></i>Безопасность</a>
-                                            <a class="dropdown-item" href="status.php?id=<?= $value['ID'] ?>"><i class="fa fa-sun"></i>Установить статус</a>
-                                            <a class="dropdown-item" href="media.php?id=<?= $value['ID'] ?>"><i class="fa fa-camera"></i>Загрузить аватар</a>
-                                            <a href="delete.php?id=<?= $value['ID'] ?>" class="dropdown-item" onclick="return confirm('are you sure?');"><i class="fa fa-window-close"></i>Удалить</a>
+                                            <a class="dropdown-item" href="page_edit.php?id=<?= $value['ID'] ?>"><i class="fa fa-edit"></i>Редактировать</a>
+                                            <a class="dropdown-item" href="page_security.php?id=<?= $value['ID'] ?>"><i class="fa fa-lock"></i>Безопасность</a>
+                                            <a class="dropdown-item" href="page_status.php?id=<?= $value['ID'] ?>"><i class="fa fa-sun"></i>Установить статус</a>
+                                            <a class="dropdown-item" href="page_media.php?id=<?= $value['ID'] ?>"><i class="fa fa-camera"></i>Загрузить аватар</a>
+                                            <a href="page_delete.php?id=<?= $value['ID'] ?>" class="dropdown-item" onclick="return confirm('are you sure?');"><i class="fa fa-window-close"></i>Удалить</a>
                                         </div>
                                     <? else: ?>
                                         <?= $arUserProfileList[$value['PROFILE']]['LAST_NAME'] ?>

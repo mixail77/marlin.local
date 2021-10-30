@@ -1,5 +1,12 @@
 <?php
 
+//Если пользователь авторизован
+if (isAuthorize()) {
+
+    redirectTo('/page_users.php');
+
+}
+
 //Авторизация пользователя
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 

@@ -93,7 +93,7 @@ function login($email, $password)
                 setFlashMessage('LOGIN_SUCCESS', 'Вы успешно авторизованы');
 
                 //Редирект на страницу пользователей
-                redirectTo('/users.php');
+                redirectTo('/page_users.php');
 
                 return true;
 
@@ -159,7 +159,7 @@ function userAdd($email, $password, $status = USER_STATUS, $type = 'register')
 
     }
 
-    setFlashMessage('REGISTER_ERROR', 'Произошла ошибка1');
+    setFlashMessage('REGISTER_ERROR', 'Произошла ошибка');
 
     return false;
 
@@ -386,7 +386,7 @@ function getUserProfileById($profileId)
 
     foreach ($arRes as $value) {
 
-        $arResult[$value['ID']] =  $value;
+        $arResult[$value['ID']] = $value;
 
     }
 
@@ -426,7 +426,7 @@ function getUserSocialById($socialId)
 
     foreach ($arRes as $value) {
 
-        $arResult[$value['ID']] =  $value;
+        $arResult[$value['ID']] = $value;
 
     }
 
@@ -466,7 +466,7 @@ function getUserStatusById($statusId)
 
     foreach ($arRes as $value) {
 
-        $arResult[$value['ID']] =  $value;
+        $arResult[$value['ID']] = $value;
 
     }
 
@@ -506,7 +506,7 @@ function getUserRoleById($roleId)
 
     foreach ($arRes as $value) {
 
-        $arResult[$value['ID']] =  $value;
+        $arResult[$value['ID']] = $value;
 
     }
 
@@ -535,7 +535,7 @@ function getUserListAll()
 
     foreach ($arRes as $value) {
 
-        $arResult[$value['ID']] =  $value;
+        $arResult[$value['ID']] = $value;
 
     }
 
@@ -564,7 +564,7 @@ function getStatusListAll()
 
     foreach ($arRes as $value) {
 
-        $arResult[$value['ID']] =  $value;
+        $arResult[$value['ID']] = $value;
 
     }
 
@@ -592,7 +592,7 @@ function getRoleListAll()
 
     foreach ($arRes as $value) {
 
-        $arResult[$value['ID']] =  $value;
+        $arResult[$value['ID']] = $value;
 
     }
 
@@ -647,11 +647,13 @@ function displayFlashClear()
 function isAuthorize()
 {
 
-    if (empty($_SESSION['USER']['ID'])) {
+    if (!empty($_SESSION['USER']['ID'])) {
 
-        redirectTo();
+        return true;
 
     }
+
+    return false;
 
 }
 

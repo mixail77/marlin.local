@@ -1,7 +1,11 @@
 <?php
 
 //Проверяем авторизацию пользователя
-isAuthorize();
+if (!isAuthorize()) {
+
+    redirectTo('/page_login.php');
+
+}
 
 //Список пользователей
 $arUserList = getUserListAll();

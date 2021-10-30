@@ -42,12 +42,14 @@ if (file_exists($_SERVER["DOCUMENT_ROOT"] . '/handler/register.php')) {
                                 <span class="page-logo-text mr-1">Учебный проект</span>
                             </a>
                         </div>
-                        <span class="text-white opacity-50 ml-auto mr-2 hidden-sm-down">
-                            Уже зарегистрированы?
-                        </span>
-                        <a href="page_login.php" class="btn-link text-white ml-auto ml-sm-0">
-                            Войти
-                        </a>
+                        <? if(!isAuthorize()): ?>
+                            <span class="text-white opacity-50 ml-auto mr-2 hidden-sm-down">
+                                Уже зарегистрированы?
+                            </span>
+                            <a href="page_login.php" class="btn-link text-white ml-auto ml-sm-0">
+                                Войти
+                            </a>
+                        <? endif; ?>
                     </div>
                 </div>
                 <div class="flex-1" style="background: url(img/svg/pattern-1.svg) no-repeat center bottom fixed; background-size: cover;">
