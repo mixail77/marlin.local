@@ -2,7 +2,7 @@
 if (file_exists($_SERVER["DOCUMENT_ROOT"] . '/include/init.php')) {
     require_once($_SERVER["DOCUMENT_ROOT"] . '/include/init.php');
 }
-userAuthorize();
+isAuthorize();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,7 +33,7 @@ userAuthorize();
                     <a class="nav-link" href="page_login.php">Войти</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Выйти</a>
+                    <a class="nav-link" href="page_logout.php">Выйти</a>
                 </li>
             </ul>
         </div>
