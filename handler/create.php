@@ -76,8 +76,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     } else {
 
+        //Добавляем нового пользователя
         $userId = userAdd($email, $password, $status, 'create');
 
+        //Обновляем профиль и соцсети пользователя
         if (!empty($userId)) {
 
             $userFields = getUserByID($userId);
