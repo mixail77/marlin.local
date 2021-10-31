@@ -43,14 +43,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     }
 
-    //Нет ошибок
+    //Если нет ошибок
     if (!empty($arError)) {
 
         setFlashMessage('REGISTER_ERROR', $arError);
 
     } else {
 
-        userAdd($email, $hash);
+        //Добавляем нового пользователя
+        $userId = userAdd($email, $hash);
+
+        if (!empty($userId)) {
+
+            //Добавляем профиль и соцсети пользователя
+            userAddProfile($userId);
+            userAddSocial($userId);
+
+            setFlashMessage('REGISTER_SUCCESS', 'Вы успешно зарегистрированы. Пожалуйста, авторизуйтесь');
+
+            //Редирект на страницу авторизации
+            redirectTo('/page_login.php');
+
+        } else {
+
+            setFlashMessage('REGISTER_ERROR', 'Произошла ошибка');
+
+        }
 
     }
 

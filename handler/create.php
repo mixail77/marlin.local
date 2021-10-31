@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     }
 
-    //Нет ошибок
+    //Если нет ошибок
     if (!empty($arError)) {
 
         setFlashMessage('CREATE_ERROR', $arError);
@@ -77,12 +77,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
 
         //Добавляем нового пользователя
-        $userId = userAdd($email, $password, $status, 'create');
+        $userId = userAdd($email, $password, $status);
 
-        //Обновляем профиль и соцсети пользователя
         if (!empty($userId)) {
 
-            $userFields = getUserByID($userId);
+            //Добавляем профиль и соцсети пользователя
+            $profileId = userAddProfile($userId);
+            $socialId = userAddSocial($userId);
 
             $updateProfileFields = [
                 'NAME' => $name,
@@ -100,13 +101,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 'TELEGRAM' => $instagram,
             ];
 
-            userUpdateProfile($userFields['PROFILE'], $updateProfileFields);
-            userUpdateSocial($userFields['SOCIAL'], $updateSocialFields);
+            //Обновляем профиль и соцсети пользователя
+            userUpdateProfile($profileId, $updateProfileFields);
+            userUpdateSocial($socialId, $updateSocialFields);
 
             setFlashMessage('CREATE_SUCCESS', 'Пользователь успешно добавлен');
 
             //Редирект на страницу списка пользователей
             redirectTo('/page_users.php');
+
+        } else {
+
+            setFlashMessage('CREATE_ERROR', 'Произошла ошибка');
 
         }
 

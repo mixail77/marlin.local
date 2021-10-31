@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     }
 
-    //Нет ошибок
+    //Если нет ошибок
     if (!empty($arError)) {
 
         setFlashMessage('LOGIN_ERROR', $arError);

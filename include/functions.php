@@ -110,7 +110,7 @@ function login($email, $password)
 }
 
 //Добавляем пользователя
-function userAdd($email, $password, $status = USER_STATUS, $type = 'register')
+function userAdd($email, $password, $status = USER_STATUS)
 {
 
     if (!empty($email) && !empty($password)) {
@@ -123,7 +123,7 @@ function userAdd($email, $password, $status = USER_STATUS, $type = 'register')
                 'EMAIL' => $email,
                 'PASSWORD' => $password,
                 'STATUS' => $status,
-                'ROLE' => USER_ROLE,
+                'ROLE' => USER_ROLE, //Роль по умолчанию
             ]
         );
 
@@ -132,40 +132,17 @@ function userAdd($email, $password, $status = USER_STATUS, $type = 'register')
         //Проверяем
         if (!empty($userId)) {
 
-            //Добавляем профиль и соцсети пользователя
-            $profileId = userAddProfile($userId);
-            $socialId = userAddSocial($userId);
-
-            if (!empty($profileId) && !empty($socialId)) {
-
-                if ($type == 'register') {
-
-                    setFlashMessage('REGISTER_SUCCESS', 'Вы успешно зарегистрированы. Пожалуйста, авторизуйтесь');
-
-                    //Редирект на страницу авторизации
-                    redirectTo('/page_login.php');
-
-                } else {
-
-                    return $userId;
-
-                }
-
-                return true;
-
-            }
+            return $userId;
 
         }
 
     }
 
-    setFlashMessage('REGISTER_ERROR', 'Произошла ошибка');
-
     return false;
 
 }
 
-//Добавляем пользователю профиль
+//Добавляем пользователю профиль при регистрации
 function userAddProfile($userId)
 {
 
@@ -205,7 +182,7 @@ function userAddProfile($userId)
 
 }
 
-//Добавляем пользователю соцсети
+//Добавляем пользователю соцсети при регистрации
 function userAddSocial($userId)
 {
 
