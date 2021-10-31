@@ -2,12 +2,8 @@
 if (file_exists($_SERVER["DOCUMENT_ROOT"] . '/include/init.php')) {
     require_once($_SERVER["DOCUMENT_ROOT"] . '/include/init.php');
 }
-
-//Проверяем авторизацию пользователя
-if (!isAuthorize()) {
-
-    redirectTo('/page_login.php');
-
+if (file_exists($_SERVER["DOCUMENT_ROOT"] . '/handler/edit.php')) {
+    require_once($_SERVER["DOCUMENT_ROOT"] . '/handler/edit.php');
 }
 ?>
 <!DOCTYPE html>
@@ -49,12 +45,22 @@ if (!isAuthorize()) {
     </nav>
 
     <main id="js-page-content" role="main" class="page-content mt-3">
+
+        <? if (!empty($_SESSION['MESSAGE']['EDIT_ERROR'])): ?>
+
+            <div class="alert alert-danger text-dark" role="alert">
+                <?= displayFlashMessage('EDIT_ERROR') ?>
+            </div>
+
+        <? endif; ?>
+
         <div class="subheader">
             <h1 class="subheader-title">
                 <i class='subheader-icon fal fa-plus-circle'></i> Редактировать
             </h1>
         </div>
-        <form action="">
+
+        <form action="page_edit.php?id=<?= $userId ?>" method="POST">
             <div class="row">
                 <div class="col-xl-6">
                     <div id="panel-1" class="panel">
@@ -66,25 +72,25 @@ if (!isAuthorize()) {
                                 <!-- username -->
                                 <div class="form-group">
                                     <label class="form-label" for="simpleinput">Имя</label>
-                                    <input type="text" id="simpleinput" class="form-control" value="Иван иванов">
+                                    <input type="text" name="name" id="simpleinput" class="form-control" value="<?= (isset($_POST['name'])) ? $_POST['name'] : $arUserProfileInfo['NAME'] ?>">
                                 </div>
 
                                 <!-- title -->
                                 <div class="form-group">
                                     <label class="form-label" for="simpleinput">Место работы</label>
-                                    <input type="text" id="simpleinput" class="form-control" value="Marlin Веб-разработчик">
+                                    <input type="text" name="job" id="simpleinput" class="form-control" value="<?= (isset($_POST['job'])) ? $_POST['job'] : $arUserProfileInfo['JOB'] ?>">
                                 </div>
 
                                 <!-- tel -->
                                 <div class="form-group">
                                     <label class="form-label" for="simpleinput">Номер телефона</label>
-                                    <input type="text" id="simpleinput" class="form-control" value="8 888 8888 88">
+                                    <input type="text" name="phone" id="simpleinput" class="form-control" value="<?= (isset($_POST['phone'])) ? $_POST['phone'] : $arUserProfileInfo['PHONE'] ?>">
                                 </div>
 
                                 <!-- address -->
                                 <div class="form-group">
                                     <label class="form-label" for="simpleinput">Адрес</label>
-                                    <input type="text" id="simpleinput" class="form-control" value="Восточные Королевства, Штормград">
+                                    <input type="text" name="address" id="simpleinput" class="form-control" value="<?= (isset($_POST['address'])) ? $_POST['address'] : $arUserProfileInfo['ADDRESS'] ?>">
                                 </div>
                                 <div class="col-md-12 mt-3 d-flex flex-row-reverse">
                                     <button class="btn btn-warning">Редактировать</button>
@@ -95,6 +101,7 @@ if (!isAuthorize()) {
                 </div>
             </div>
         </form>
+
     </main>
 
     <script src="js/vendors.bundle.js"></script>

@@ -94,7 +94,7 @@ if (file_exists($_SERVER["DOCUMENT_ROOT"] . '/handler/users.php')) {
                             </span>
                                 <div class="info-card-text flex-1">
 
-                                    <? if (isAdmin() || ($value['ID'] == $_SESSION['USER']['ID'])): ?>
+                                    <? if (isAdmin() || isMyProfile($value['ID'])): ?>
                                         <a href="javascript:void(0);" class="fs-xl text-truncate text-truncate-lg text-info" data-toggle="dropdown" aria-expanded="false">
                                             <?= $arUserProfileList[$value['PROFILE']]['LAST_NAME'] ?>
                                             <?= $arUserProfileList[$value['PROFILE']]['NAME'] ?>

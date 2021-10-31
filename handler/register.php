@@ -1,6 +1,6 @@
 <?php
 
-//Если пользователь авторизован
+//Проверяем авторизацию пользователя
 if (isAuthorize()) {
 
     redirectTo('/page_users.php');
@@ -43,32 +43,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     }
 
-    //Если нет ошибок
+    //Нет ошибок
     if (!empty($arError)) {
 
         setFlashMessage('REGISTER_ERROR', $arError);
 
     } else {
 
-        //Добавляем нового пользователя
-        $userId = userAdd($email, $hash);
-
-        if (!empty($userId)) {
-
-            //Добавляем профиль и соцсети пользователя
-            userAddProfile($userId);
-            userAddSocial($userId);
-
-            setFlashMessage('REGISTER_SUCCESS', 'Вы успешно зарегистрированы. Пожалуйста, авторизуйтесь');
-
-            //Редирект на страницу авторизации
-            redirectTo('/page_login.php');
-
-        } else {
-
-            setFlashMessage('REGISTER_ERROR', 'Произошла ошибка');
-
-        }
+        userAdd($email, $hash);
 
     }
 

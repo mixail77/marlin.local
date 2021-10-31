@@ -2,12 +2,8 @@
 if (file_exists($_SERVER["DOCUMENT_ROOT"] . '/include/init.php')) {
     require_once($_SERVER["DOCUMENT_ROOT"] . '/include/init.php');
 }
-
-//Проверяем авторизацию пользователя
-if (!isAuthorize()) {
-
-    redirectTo('/page_login.php');
-
+if (file_exists($_SERVER["DOCUMENT_ROOT"] . '/handler/security.php')) {
+    require_once($_SERVER["DOCUMENT_ROOT"] . '/handler/security.php');
 }
 ?>
 <!DOCTYPE html>
@@ -49,13 +45,23 @@ if (!isAuthorize()) {
     </nav>
 
     <main id="js-page-content" role="main" class="page-content mt-3">
+
+        <? if (!empty($_SESSION['MESSAGE']['SECURITY_ERROR'])): ?>
+
+            <div class="alert alert-danger text-dark" role="alert">
+                <?= displayFlashMessage('SECURITY_ERROR') ?>
+            </div>
+
+        <? endif; ?>
+
         <div class="subheader">
             <h1 class="subheader-title">
                 <i class='subheader-icon fal fa-lock'></i> Безопасность
             </h1>
 
         </div>
-        <form action="">
+
+        <form action="page_security.php?id=<?= $userId ?>" method="POST">
             <div class="row">
                 <div class="col-xl-6">
                     <div id="panel-1" class="panel">
@@ -67,21 +73,20 @@ if (!isAuthorize()) {
                                 <!-- email -->
                                 <div class="form-group">
                                     <label class="form-label" for="simpleinput">Email</label>
-                                    <input type="text" id="simpleinput" class="form-control" value="john@example.com">
+                                    <input type="text" name="email" id="simpleinput" class="form-control" value="<?= (isset($_POST['email'])) ? $_POST['email'] : $arUserInfo['EMAIL'] ?>">
                                 </div>
 
                                 <!-- password -->
                                 <div class="form-group">
                                     <label class="form-label" for="simpleinput">Пароль</label>
-                                    <input type="password" id="simpleinput" class="form-control">
+                                    <input type="password" name="password" id="simpleinput" class="form-control" value="<?= $_POST['password'] ?>">
                                 </div>
 
                                 <!-- password confirmation-->
                                 <div class="form-group">
                                     <label class="form-label" for="simpleinput">Подтверждение пароля</label>
-                                    <input type="password" id="simpleinput" class="form-control">
+                                    <input type="password" name="password_confirm" id="simpleinput" class="form-control" value="<?= $_POST['password_confirm'] ?>">
                                 </div>
-
 
                                 <div class="col-md-12 mt-3 d-flex flex-row-reverse">
                                     <button class="btn btn-warning">Изменить</button>
@@ -93,6 +98,7 @@ if (!isAuthorize()) {
                 </div>
             </div>
         </form>
+
     </main>
 
     <script src="js/vendors.bundle.js"></script>

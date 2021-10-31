@@ -142,7 +142,7 @@ function userAdd($email, $password, $status = USER_STATUS)
 
 }
 
-//Добавляем пользователю профиль при регистрации
+//Добавляем пользователю чистый профиль при регистрации
 function userAddProfile($userId)
 {
 
@@ -182,7 +182,7 @@ function userAddProfile($userId)
 
 }
 
-//Добавляем пользователю соцсети при регистрации
+//Добавляем пользователю чистые соцсети при регистрации
 function userAddSocial($userId)
 {
 
@@ -338,7 +338,7 @@ function userUpdateSocial($socialId, $updateFields)
 
 }
 
-//Получаем профиль пользователя по ID
+//Получаем профили пользователя по ID
 function getUserProfileById($profileId)
 {
 
@@ -499,7 +499,7 @@ function getUserRoleById($roleId)
 }
 
 
-//Получаем пользователей
+//Получаем список пользователей
 function getUserListAll()
 {
 
@@ -528,7 +528,7 @@ function getUserListAll()
 }
 
 
-//Получаем статусы
+//Получаем список статусов
 function getStatusListAll()
 {
 
@@ -556,7 +556,7 @@ function getStatusListAll()
 
 }
 
-//Получаем роли
+//Получаем список ролей
 function getRoleListAll()
 {
 
@@ -616,7 +616,7 @@ function displayFlashMessage($messageKey)
 function displayFlashClear()
 {
 
-    $_SESSION['MESSAGE'] = [];
+    unset($_SESSION['MESSAGE']);
 
 }
 
@@ -634,10 +634,25 @@ function isAuthorize()
 
 }
 
+//Проверяем администратора
 function isAdmin()
 {
 
     if ($_SESSION['USER']['ROLE']['CODE'] == 'admin') {
+
+        return true;
+
+    }
+
+    return false;
+
+}
+
+//Проверяем текущего пользователя и редактируемый профиль
+function isMyProfile($userId)
+{
+
+    if ($_SESSION['USER']['ID'] == $userId) {
 
         return true;
 
@@ -656,15 +671,15 @@ function logout()
 
 }
 
-//Загружает фотографию
-function addPhoto($arFiels)
+//Загружает фотографию пользователя
+function addPhoto($arFiles)
 {
 
-    if (!empty($arFiels)) {
+    if (!empty($arFiles)) {
 
-        $name = mb_strtolower(mt_rand(0, 10000) . $arFiels['photo']['name']);
+        $name = mb_strtolower(mt_rand(0, 10000) . $arFiles['photo']['name']);
         $path = 'upload/photo/' . $name;
-        copy($arFiels['photo']['tmp_name'], $path);
+        copy($arFiles['photo']['tmp_name'], $path);
 
         return $path;
 

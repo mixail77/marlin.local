@@ -1,7 +1,18 @@
 <?php
 
 //Проверяем авторизацию пользователя
-isAuthorize();
+if (!isAuthorize()) {
+
+    redirectTo('/page_login.php');
+
+}
+
+//Если не администратор
+if (!isAdmin()) {
+
+    redirectTo('/page_users.php');
+
+}
 
 //Список статусов
 $arStatusList = getStatusListAll();
