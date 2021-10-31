@@ -90,11 +90,6 @@ function login($email, $password)
                 $_SESSION['USER']['STATUS'] = array_shift(getUserStatusById($arUser['STATUS']));
                 $_SESSION['USER']['ROLE'] = array_shift(getUserRoleById($arUser['ROLE']));
 
-                setFlashMessage('LOGIN_SUCCESS', 'Вы успешно авторизованы');
-
-                //Редирект на страницу пользователей
-                redirectTo('/page_users.php');
-
                 return true;
 
             }
@@ -102,8 +97,6 @@ function login($email, $password)
         }
 
     }
-
-    setFlashMessage('LOGIN_ERROR', 'Неверный логин или пароль');
 
     return false;
 

@@ -38,7 +38,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     } else {
 
-        login($email, $password);
+        if (login($email, $password)) {
+
+            setFlashMessage('LOGIN_SUCCESS', 'Вы успешно авторизованы');
+
+            //Редирект на страницу пользователей
+            redirectTo('/page_users.php');
+
+        } else {
+
+            setFlashMessage('LOGIN_ERROR', 'Неверный логин или пароль');
+
+        }
 
     }
 

@@ -56,8 +56,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (!empty($userId)) {
 
             //Добавляем профиль и соцсети пользователя
-            $profileId = userAddProfile($userId);
-            $socialId = userAddSocial($userId);
+            userAddProfile($userId);
+            userAddSocial($userId);
 
             setFlashMessage('REGISTER_SUCCESS', 'Вы успешно зарегистрированы. Пожалуйста, авторизуйтесь');
 
