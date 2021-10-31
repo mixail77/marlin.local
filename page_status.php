@@ -2,12 +2,8 @@
 if (file_exists($_SERVER["DOCUMENT_ROOT"] . '/include/init.php')) {
     require_once($_SERVER["DOCUMENT_ROOT"] . '/include/init.php');
 }
-
-//Проверяем авторизацию пользователя
-if (!isAuthorize()) {
-
-    redirectTo('/page_login.php');
-
+if (file_exists($_SERVER["DOCUMENT_ROOT"] . '/handler/status.php')) {
+    require_once($_SERVER["DOCUMENT_ROOT"] . '/handler/status.php');
 }
 ?>
 <!DOCTYPE html>
@@ -49,16 +45,27 @@ if (!isAuthorize()) {
     </nav>
 
     <main id="js-page-content" role="main" class="page-content mt-3">
+
+        <? if (!empty($_SESSION['MESSAGE']['STATUS_ERROR'])): ?>
+
+            <div class="alert alert-danger text-dark" role="alert">
+                <?= displayFlashMessage('STATUS_ERROR') ?>
+            </div>
+
+        <? endif; ?>
+
         <div class="subheader">
             <h1 class="subheader-title">
                 <i class='subheader-icon fal fa-sun'></i> Установить статус
             </h1>
 
         </div>
-        <form action="">
+
+        <form action="page_status.php?id=<?= $userId ?>" method="POST">
             <div class="row">
                 <div class="col-xl-6">
                     <div id="panel-1" class="panel">
+
                         <div class="panel-container">
                             <div class="panel-hdr">
                                 <h2>Установка текущего статуса</h2>
@@ -69,15 +76,15 @@ if (!isAuthorize()) {
                                         <!-- status -->
                                         <div class="form-group">
                                             <label class="form-label" for="example-select">Выберите статус</label>
-                                            <select class="form-control" id="example-select">
-                                                <option>Онлайн</option>
-                                                <option>Отошел</option>
-                                                <option>Не беспокоить</option>
+                                            <select class="form-control" id="example-select" name="status">
+                                                <? foreach($arStatusList as $status): ?>
+                                                    <option value="<?= $status['ID'] ?>" <?=($status['ID'] == $arUserInfo['STATUS']) ? 'selected' : ''?>><?= $status['NAME'] ?></option>
+                                                <? endforeach; ?>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-md-12 mt-3 d-flex flex-row-reverse">
-                                        <button class="btn btn-warning">Set Status</button>
+                                        <button class="btn btn-warning">Установить статус</button>
                                     </div>
                                 </div>
                             </div>
@@ -87,6 +94,7 @@ if (!isAuthorize()) {
                 </div>
             </div>
         </form>
+
     </main>
 
     <script src="js/vendors.bundle.js"></script>

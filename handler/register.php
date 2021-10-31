@@ -50,7 +50,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     } else {
 
-        userAdd($email, $hash);
+        //Добавляем нового пользователя
+        $userId = userAdd($email, $hash);
+
+        if (!empty($userId)) {
+
+            //Добавляем профиль и соцсети пользователя
+            $profileId = userAddProfile($userId);
+            $socialId = userAddSocial($userId);
+
+            setFlashMessage('REGISTER_SUCCESS', 'Вы успешно зарегистрированы. Пожалуйста, авторизуйтесь');
+
+            //Редирект на страницу авторизации
+            redirectTo('/page_login.php');
+
+        } else {
+
+            setFlashMessage('REGISTER_ERROR', 'Произошла ошибка');
+
+        }
 
     }
 

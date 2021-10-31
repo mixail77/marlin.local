@@ -258,6 +258,33 @@ function userUpdate($userId, $updateFields)
 
 }
 
+//Удаляем пользователя
+function deleteUser($userId)
+{
+
+    if (!empty($userId)) {
+
+        $pdo = dbConnect();
+
+        $stmt = $pdo->prepare('DELETE FROM `user` WHERE `ID` = :ID');
+        $stmt->execute(
+            [
+                'ID' => $userId,
+            ]
+        );
+
+        if ($stmt->rowCount()) {
+
+            return true;
+
+        }
+
+    }
+
+    return false;
+
+}
+
 //Обновляем профиль пользователя
 function userUpdateProfile($profileId, $updateFields)
 {
@@ -298,6 +325,33 @@ function userUpdateProfile($profileId, $updateFields)
 
 }
 
+//Удаляем профиль пользователя
+function userDeleteProfile($profileId)
+{
+
+    if (!empty($profileId)) {
+
+        $pdo = dbConnect();
+
+        $stmt = $pdo->prepare('DELETE FROM `user_profile` WHERE `ID` = :ID');
+        $stmt->execute(
+            [
+                'ID' => $profileId,
+            ]
+        );
+
+        if ($stmt->rowCount()) {
+
+            return true;
+
+        }
+
+    }
+
+    return false;
+
+}
+
 //Обновляем соцсети пользователя
 function userUpdateSocial($socialId, $updateFields)
 {
@@ -329,6 +383,33 @@ function userUpdateSocial($socialId, $updateFields)
                 return true;
 
             }
+
+        }
+
+    }
+
+    return false;
+
+}
+
+//Удаляем соцсети пользователя
+function userDeleteSocial($socialId)
+{
+
+    if (!empty($socialId)) {
+
+        $pdo = dbConnect();
+
+        $stmt = $pdo->prepare('DELETE FROM `user_social` WHERE `ID` = :ID');
+        $stmt->execute(
+            [
+                'ID' => $socialId,
+            ]
+        );
+
+        if ($stmt->rowCount()) {
+
+            return true;
 
         }
 
@@ -682,6 +763,22 @@ function addPhoto($arFiles)
         copy($arFiles['photo']['tmp_name'], $path);
 
         return $path;
+
+    }
+
+    return false;
+
+}
+
+//Удаляет файл фотографии пользователя
+function deletePhoto($path)
+{
+
+    if (!empty($path) && file_exists($_SERVER["DOCUMENT_ROOT"] . '/' . $path)) {
+
+        unlink($_SERVER['DOCUMENT_ROOT'] . '/' . $path);
+
+        return true;
 
     }
 

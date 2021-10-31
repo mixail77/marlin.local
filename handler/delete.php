@@ -16,7 +16,7 @@ if (!isAdmin() && !isMyProfile($userId)) {
 
 }
 
-//Получаем данные редактируемого пользователя
+//Получаем данные удаляемого пользователя
 $arUserInfo = getUserByID($userId);
 
 //Пользователь не существует
@@ -26,11 +26,26 @@ if (empty($arUserInfo)) {
 
 }
 
-//Удаление профиля пользователя
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+//Получаем информацию о профиле пользователя
+$arUserProfileInfo = array_shift(getUserProfileById($arUserInfo['PROFILE']));
 
-    displayFlashClear();
+//Удаляем пользователя
+userDeleteProfile($arUserInfo['PROFILE']);
+userDeleteSocial($arUserInfo['SOCIAL']);
+deletePhoto($arUserProfileInfo['PHOTO']);
+deleteUser($userId);
 
+//Если удалил себя самого
+if (isMyProfile($userId)) {
+
+    redirectTo('/page_logout.php');
+
+} else {
+
+    setFlashMessage('CREATE_SUCCESS', 'Пользователь успешно удален');
+
+    //Редирект на страницу списка пользователей
+    redirectTo('/page_users.php');
 
 }
 

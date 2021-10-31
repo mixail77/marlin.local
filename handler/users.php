@@ -10,10 +10,10 @@ if (!isAuthorize()) {
 //Список пользователей
 $arUserList = getUserListAll();
 
-//Список статусов
+//Получаем список статусов
 $arStatusList = getStatusListAll();
 
-//Список ролей
+//Получаем список ролей
 $arRoleList = getRoleListAll();
 
 //Профили пользователей

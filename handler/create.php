@@ -14,7 +14,7 @@ if (!isAdmin()) {
 
 }
 
-//Список статусов
+//Получаем список статусов
 $arStatusList = getStatusListAll();
 
 //Добавление пользователя
@@ -96,6 +96,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $profileId = userAddProfile($userId);
             $socialId = userAddSocial($userId);
 
+            //Добавляем новый файл + в реальной ситуации нужно сделать проверку на корректность добавления файла
+            $photo = addPhoto($_FILES);
+
             $updateProfileFields = [
                 'NAME' => $name,
                 'LAST_NAME' => '',
@@ -103,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 'PHONE' => $phone,
                 'ADDRESS' => $address,
                 'JOB' => $job,
-                'PHOTO' => addPhoto($_FILES),
+                'PHOTO' => $photo,
             ];
 
             $updateSocialFields = [
