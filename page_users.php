@@ -103,6 +103,7 @@ if (file_exists($_SERVER["DOCUMENT_ROOT"] . '/handler/users.php')) {
                                             <i class="fal fa-angle-down d-inline-block ml-1 fs-md"></i>
                                         </a>
                                         <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="page_profile.php?id=<?= $value['ID'] ?>"><i class="fa fa-user"></i>Профиль</a>
                                             <a class="dropdown-item" href="page_edit.php?id=<?= $value['ID'] ?>"><i class="fa fa-edit"></i>Редактировать</a>
                                             <a class="dropdown-item" href="page_security.php?id=<?= $value['ID'] ?>"><i class="fa fa-lock"></i>Безопасность</a>
                                             <a class="dropdown-item" href="page_status.php?id=<?= $value['ID'] ?>"><i class="fa fa-sun"></i>Установить статус</a>
