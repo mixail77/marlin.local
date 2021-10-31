@@ -14,17 +14,17 @@ const USER_ROLE = 2;
 const USER_STATUS = 4;
 
 //Профиль пользователя по умолчанию
-const USER_NAME = 'Имя';
-const USER_LAST_NAME = 'Фамилия';
-const USER_SECOND_NAME = 'Отчество';
-const USER_PHONE = 'Телефон';
-const USER_ADDRESS = 'Адрес';
-const USER_JOB = 'Место работы';
+const USER_NAME = '';
+const USER_LAST_NAME = '';
+const USER_SECOND_NAME = '';
+const USER_PHONE = '';
+const USER_ADDRESS = '';
+const USER_JOB = '';
 const USER_PHOTO = '';
 
 //Соцсети пользователя по умолчанию
-const USER_VK = 'vk.com';
-const USER_INSTAGRAM = 'instagram.com';
-const USER_TELEGRAM = 'telegram.org';
+const USER_VK = '';
+const USER_INSTAGRAM = '';
+const USER_TELEGRAM = '';
 
 ?>
