@@ -92,6 +92,25 @@ if (file_exists($_SERVER["DOCUMENT_ROOT"] . '/handler/edit.php')) {
                                     <label class="form-label" for="simpleinput">Адрес</label>
                                     <input type="text" name="address" id="simpleinput" class="form-control" value="<?= (isset($_POST['address'])) ? $_POST['address'] : $arUserProfileInfo['ADDRESS'] ?>">
                                 </div>
+
+                                <!-- vk -->
+                                <div class="form-group">
+                                    <label class="form-label" for="simpleinput">vk</label>
+                                    <input type="text" name="vk" id="simpleinput" class="form-control" value="<?= (isset($_POST['vk'])) ? $_POST['vk'] : $arUserSocialInfo['VK'] ?>">
+                                </div>
+
+                                <!-- telegram -->
+                                <div class="form-group">
+                                    <label class="form-label" for="simpleinput">telegram</label>
+                                    <input type="text" name="telegram" id="simpleinput" class="form-control" value="<?= (isset($_POST['telegram'])) ? $_POST['telegram'] : $arUserSocialInfo['TELEGRAM'] ?>">
+                                </div>
+
+                                <!-- instagram -->
+                                <div class="form-group">
+                                    <label class="form-label" for="simpleinput">instagram</label>
+                                    <input type="text" name="instagram" id="simpleinput" class="form-control" value="<?= (isset($_POST['instagram'])) ? $_POST['instagram'] : $arUserSocialInfo['INSTAGRAM'] ?>">
+                                </div>
+
                                 <div class="col-md-12 mt-3 d-flex flex-row-reverse">
                                     <button class="btn btn-warning">Редактировать</button>
                                 </div>

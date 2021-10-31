@@ -29,6 +29,9 @@ if (empty($arUserInfo)) {
 //Получаем информацию о профиле пользователя
 $arUserProfileInfo = array_shift(getUserProfileById($arUserInfo['PROFILE']));
 
+//Получаем информацию о соцсетях пользователя
+$arUserSocialInfo = array_shift(getUserSocialById($arUserInfo['SOCIAL']));
+
 //Редактирование профиля пользователя
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -40,6 +43,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $job = trim(strip_tags($_POST['job']));
     $phone = trim(strip_tags($_POST['phone']));
     $address = trim(strip_tags($_POST['address']));
+
+    $vk = trim(strip_tags($_POST['vk']));
+    $telegram = trim(strip_tags($_POST['telegram']));
+    $instagram = trim(strip_tags($_POST['instagram']));
 
     //Проверяем имя
     if (empty($name)) {
@@ -87,6 +94,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         //Обновляем профиль пользователя
         userUpdateProfile($arUserInfo['PROFILE'], $updateProfileFields);
+
+        $updateSocialFields = [
+            'VK' => $vk,
+            'INSTAGRAM' => $telegram,
+            'TELEGRAM' => $instagram,
+        ];
+
+        userUpdateSocial($arUserInfo['SOCIAL'], $updateSocialFields);
 
         setFlashMessage('CREATE_SUCCESS', 'Пользователь успешно отредактирован');
 
